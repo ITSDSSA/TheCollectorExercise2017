@@ -44,12 +44,15 @@ namespace Collectables
                 {
                     collected = true;
                     p.Score += val;
-                    p.collected.Add(this);
+                    p.collected.Add((Collectable)MemberwiseClone());
                 }
 
             }
 
+
         }
+       
+
         public void draw(SpriteFont font, SpriteBatch sp)
         {
             Texture2D tx;

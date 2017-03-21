@@ -96,10 +96,11 @@ namespace Collectables
             if (GraphicsDevice.Viewport.Bounds.Contains(InputEngine.MousePosition))
                 if (InputEngine.MousePosition != InputEngine.PreviousMouseState.Position.ToVector2())
                     p.Position = InputEngine.MousePosition;
+            // To update the position of the Bounding box of the player
             p.Update();
+            // Se if the collectables are collected by the player
             foreach (var c in collectables)
                 c.Update(p);
-            // TODO: Add your update logic here
 
             base.Update(gameTime);
         }

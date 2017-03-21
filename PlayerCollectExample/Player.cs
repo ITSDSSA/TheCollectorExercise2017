@@ -5,6 +5,8 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Collectables;
+using Engine.Engines;
+using Microsoft.Xna.Framework.Input;
 
 namespace Sprites
 {
@@ -15,6 +17,7 @@ namespace Sprites
         public Rectangle BoundingRect;
         public int Score;
         public List<Collectable> collected;
+        private bool show;
 
         // Constructor expects to see a loaded Texture
         // and a start position
@@ -41,10 +44,27 @@ namespace Sprites
                 sp.Draw(Image, Position, Color.White);
             }
         }
+        public void showInventory()
+        {
+            var gold = collected.Where(c => c.type == CTYPE.GOLD);
+            var potions = collected.Where(c => c.type == CTYPE.POTION);
+            var tools = collected.Where(c => c.type == CTYPE.TOOL);
+            Vector2 goldStart = new Vector2(64, 64);
+            foreach (var item in gold)
+            {
+                item.position = goldStart;
+                item.collected = false;
+                goldStart += new Vector2(68, 0);
+            }
 
+        }
         public void Update()
         {
             BoundingRect = new Rectangle(Position.ToPoint(), Image.Bounds.Size);
+            if (InputEngine.IsKeyPressed(Keys.U))
+                show = !show;
+            if (show)
+                showInventory();
         }
 
         public void Move(Vector2 delta)
