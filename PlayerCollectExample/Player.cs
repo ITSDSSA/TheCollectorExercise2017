@@ -43,10 +43,13 @@ namespace Sprites
                 sp.DrawString(font, Score.ToString(), new Vector2(halfx, y), Color.White);
                 sp.Draw(Image, Position, Color.White);
             }
+            if(show)
+                foreach (var item in collected)
+                    item.draw(font, sp);
         }
         public void showInventory()
         {
-            var gold = collected.Where(c => c.type == CTYPE.GOLD);
+            var gold = collected.Where(c => c.type == CTYPE.GOLD).OrderBy(c => c.val);
             var potions = collected.Where(c => c.type == CTYPE.POTION);
             var tools = collected.Where(c => c.type == CTYPE.TOOL);
             Vector2 goldStart = new Vector2(64, 64);

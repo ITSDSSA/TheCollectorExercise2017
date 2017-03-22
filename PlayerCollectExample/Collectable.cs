@@ -45,6 +45,7 @@ namespace Collectables
                     collected = true;
                     p.Score += val;
                     p.collected.Add((Collectable)MemberwiseClone());
+                    //p.collected.Add(this);
                 }
 
             }
@@ -62,7 +63,8 @@ namespace Collectables
             collectionTextures.textureforTypes.TryGetValue(type, out tx);
             if (tx != null)
             {
-                int halfx = (int)position.X + tx.Width / 2;
+                Vector2 valSize = font.MeasureString(val.ToString());
+                int halfx = (int)position.X + tx.Width / 2 - (int)valSize.X/2;
                 int y = (int)position.Y - 20;
                 sp.Draw(tx, position, Color.White);
                 sp.DrawString(font, val.ToString(), new Vector2(halfx, y), Color.White);
